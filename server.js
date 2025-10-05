@@ -6,8 +6,6 @@ const errorMiddleware = require("./middlewares/error.middleware");
 const apiError = require("./utils/apiError");
 const cors = require('cors');
 
-console.log("JWT_SECRET value:", process.env.JWT_SECRET);
-
 DB();
 
 app.use(express.json());

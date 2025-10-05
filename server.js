@@ -1,8 +1,7 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
+require("dotenv").config();
 const DB = require("./config/DB");
-const PORT = process.env.PORT;
 const errorMiddleware = require("./middlewares/error.middleware");
 const apiError = require("./utils/apiError");
 const cors = require('cors');
@@ -22,9 +21,13 @@ app.use((req, res, next) => {
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT || 3000}`);
+  });
+}
+
+module.exports = app;
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
